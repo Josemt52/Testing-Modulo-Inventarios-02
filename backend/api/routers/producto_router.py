@@ -13,12 +13,17 @@ def get_db():
         yield db
     finally:
         db.close()
+
 @router.post("/", response_model=ProductoOut)
 def crear(data: ProductoCreate, db: Session = Depends(get_db)):
     return producto_service.crear_producto(db, data)
+
+
 @router.get("/", response_model=list[ProductoOut])
 def listar(db: Session = Depends(get_db)):
     return producto_repository.obtener_todos(db)
+
+
 @router.put("/{producto_id}", response_model=ProductoOut)
 def actualizar(producto_id: int, data: ProductoUpdate, db: Session = Depends(get_db)):
     actualizado = producto_service.actualizar_producto(db, producto_id, data)
