@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from api.routers import producto_router, inventario_router, auth_router
 from api.database import Base, engine
 
-from api.models import producto, categoria, marca, usuario, movimiento
+from api.models import producto, categoria, marca, usuario, movimiento, almacen
 
 Base.metadata.create_all(bind=engine)
 

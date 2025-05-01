@@ -17,3 +17,6 @@ def actualizar_stock(db: Session, producto_id: int, cantidad: int, tipo: str):
             producto.stock_actual -= cantidad
         db.commit()
     return producto
+
+def obtener_todos(db: Session):
+    return db.query(MovimientoInventario).all()
