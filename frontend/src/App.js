@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, Navigate } from 'react-router-dom';
 import Productos from './pages/Productos';
 import Inventarios from './pages/Inventarios';
@@ -6,14 +6,15 @@ import Login from './pages/Login.js';
 import './App.css';
 
 function App() {
-
   const [usuario, setUsuario] = useState(null);
+  const [loading, setLoading] = useState(true); // New loading state
 
   useEffect(() => {
     const usuarioGuardado = localStorage.getItem('usuario');
     if (usuarioGuardado) {
       setUsuario(JSON.parse(usuarioGuardado));
     }
+    setLoading(false); // Set loading to false after checking localStorage
   }, []);
 
   const handleLogin = (usuario) => {
@@ -29,6 +30,11 @@ function App() {
   const RutaProtegida = ({ children }) => {
     return usuario ? children : <Navigate to="/login" />;
   };
+
+  if (loading) {
+    // Show a loading indicator while checking for the logged-in user
+    return <div>Loading...</div>;
+  }
 
   return (
     <Router>

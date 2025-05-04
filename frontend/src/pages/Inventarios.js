@@ -35,7 +35,7 @@ function Inventarios() {
     const movimiento = {
       producto_id: parseInt(productoId),
       cantidad: parseInt(cantidad),
-      tipo,
+      tipo, 
       almacen_id: null, // Opcional
       origen: '', // Opcional
       observaciones: '', // Opcional
@@ -75,7 +75,7 @@ function Inventarios() {
             setMovimientos([...movimientos, data]);
           })
           .catch((error) => {
-            console.error('Error registrando movimiento:', error);
+            console.error('Error registrando movimiento:', error);  
             setMessage(error.message);
           });
   };
