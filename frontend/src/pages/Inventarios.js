@@ -110,6 +110,7 @@ function Inventarios() {
               type="number"
               value={cantidad}
               onChange={(e) => setCantidad(e.target.value)}
+              min="1" // Ensures only positive numbers are allowed
               required
             />
           </div>
