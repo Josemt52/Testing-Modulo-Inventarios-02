@@ -2,6 +2,11 @@
   background-color: #282c34;
   padding: 20px;
   color: white;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+  transform: translateY(-100%); /* Start off-screen */
+  animation: dropDown 1.5s ease-out forwards; /* Apply the animation */
 }
 
 nav ul {
@@ -16,4 +21,13 @@ nav ul li {
 
 nav ul li a:hover {
   text-decoration: underline;
+}
+
+@keyframes dropDown {
+  0% {
+    transform: translateY(-100%); /* Start above the viewport */
+  }
+  100% {
+    transform: translateY(0); /* End at its original position */
+  }
 }

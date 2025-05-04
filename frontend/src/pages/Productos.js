@@ -12,7 +12,12 @@ function Productos() {
 
   return (
     <div>
-      <h1>Lista de Productos</h1>
+      
+      <h1 className="animated-text centered-text">
+        {Array.from("Lista de productos").map((letter, index) => (
+          <span key={index}>{letter === " " ? "\u00A0" : letter}</span>
+        ))}
+      </h1>
       <ul>
         {productos.map((producto) => (
           <li key={producto.id}>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import './Inventarios.css';
 function Inventarios() {
   const [productos, setProductos] = useState([]);
   const [movimientos, setMovimientos] = useState([]);
@@ -82,51 +82,59 @@ function Inventarios() {
 
   return (
     <div>
-      <h1>Módulo de Inventarios</h1>
-      <form onSubmit={handleSubmit}>
+      <h1 className="animated-text centered-text">
+        {Array.from("Módulo de Inventarios").map((letter, index) => (
+          <span key={index}>{letter === " " ? "\u00A0" : letter}</span>
+        ))}
+      </h1>
+      <div className="inventarios-grid">
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Producto:</label>
+            <select
+              value={productoId}
+              onChange={(e) => setProductoId(e.target.value)}
+              required
+            >
+              <option value="">Seleccione un producto</option>
+              {productos.map((producto) => (
+                <option key={producto.id} value={producto.id}>
+                  {producto.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label>Cantidad:</label>
+            <input
+              type="number"
+              value={cantidad}
+              onChange={(e) => setCantidad(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Tipo:</label>
+            <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
+              <option value="entrada">Entrada</option>
+              <option value="salida">Salida</option>
+            </select>
+          </div>
+          <button type="submit" className="small-button">Registrar Movimiento</button>
+          <p>{message}</p>
+        </form>
         <div>
-          <label>Producto:</label>
-          <select
-            value={productoId}
-            onChange={(e) => setProductoId(e.target.value)}
-            required
-          >
-            <option value="">Seleccione un producto</option>
-            {productos.map((producto) => (
-              <option key={producto.id} value={producto.id}>
-                {producto.nombre}
-              </option>
-            ))}
-          </select>
+          <h2>Movimientos Registrados</h2>
+          <ul>
+            {Array.isArray(movimientos) &&
+              movimientos.map((movimiento) => (
+                <li key={movimiento.id}>
+                  Producto: {movimiento.producto_id}, Cantidad: {movimiento.cantidad}, Tipo: {movimiento.tipo}
+                </li>
+              ))}
+          </ul>
         </div>
-        <div>
-          <label>Cantidad:</label>
-          <input
-            type="number"
-            value={cantidad}
-            onChange={(e) => setCantidad(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Tipo:</label>
-          <select value={tipo} onChange={(e) => setTipo(e.target.value)}>
-            <option value="entrada">Entrada</option>
-            <option value="salida">Salida</option>
-          </select>
-        </div>
-        <button type="submit">Registrar Movimiento</button>
-      </form>
-      <p>{message}</p>
-      <h2>Movimientos Registrados</h2>
-      <ul>
-        {Array.isArray(movimientos) &&
-          movimientos.map((movimiento) => (
-            <li key={movimiento.id}>
-              Producto: {movimiento.producto_id}, Cantidad: {movimiento.cantidad}, Tipo: {movimiento.tipo}
-            </li>
-          ))}
-      </ul>
+      </div>
     </div>
   );
 }
