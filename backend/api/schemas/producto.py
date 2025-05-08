@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from typing import Optional
 
 class ProductoBase(BaseModel):
@@ -21,3 +21,10 @@ class ProductoOut(ProductoBase):
 
     class Config:
         from_attributes = True
+        
+class ProductoCreate(BaseModel):
+    nombre: str = Field(..., min_length=1)
+    precio: float = Field(..., gt=0)
+    stock_actual: int
+    stock_minimo: int
+    activo: bool

@@ -4,7 +4,7 @@ from api.models.producto import Producto
 from api.repositories import producto_repository
 
 def crear_producto(db: Session, data: ProductoCreate):
-    producto = Producto(**data.dict())
+    producto = Producto(**data.model_dump())
     return producto_repository.crear_producto(db, producto)
 
 def actualizar_producto(db: Session, producto_id: int, data: ProductoUpdate):
