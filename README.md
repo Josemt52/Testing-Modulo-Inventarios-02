@@ -1,71 +1,123 @@
-# 🧩 Proyecto Full Stack: Backend + Frontend
+# Inventory Management Project
 
-Este es un proyecto full stack con **Flask** como backend y **React** como frontend. La estructura está diseñada para ser escalable, mantenible y fácil de entender.
+Este proyecto es una **aplicación de gestión de inventario** desarrollada con un backend en **Python (Flask + MySQL)** y un frontend en **React**. Permite registrar, actualizar y visualizar categorías, marcas, productos, almacenes y movimientos de inventario.
 
 ---
-## 📁 Manual de usuario 
-El siguiente proyecto se debera realizar en los siguientes pasos:
-- implementar la base de datos que existe dentro del /database/base de datos(conlogin).txt en Mysql 
-- crear un ambiente virtual con los requisitos del backend python -m venv env; pip install -r requirements.txt
-- entrar al ambiente con .\env\Scripts\activate
-- En Testing-Modulo-Inventarios-02/backend/api/database.py cambiar las permisos para la base de datos DATABASE_URL = "mysql+pymysql://root:(tu contraseña)@(donde esta alojado)/inventario_db"
-- iniciar el backend uvicorn api.main:app --reload
-- iniciar el frontend npm install; npm install react-scripts;npm start
- 
 
 ## 📁 Estructura del Proyecto
 
-├── /backend/                        # Carpeta del backend
+```
+/inventory_management_project
+│
+├── /backend
+│   ├── /app
+│   │   ├── /routes            # Rutas de la API (endpoints)
+│   │   ├── /models            # Modelos de base de datos
+│   │   ├── /database.py       # Configuración de la conexión a MySQL
+│   │   ├── /app.py            # Punto de entrada del backend
+│   │
+│   └── /venv                  # Entorno virtual de Python
+│
+├── /frontend
+│   ├── /public
+│   │   └── index.html         # HTML principal
+│   │
+│   ├── /src
+│   │   ├── /components        # Componentes React (categorías, productos, etc.)
+│   │   ├── /App.js            # Componente principal
+│   │   ├── /index.js          # Punto de entrada de React
+│   │
+│   └── /node_modules          # Dependencias de Node.js
+│
+├── /requirements.txt          # Librerías del backend
+├── /.gitignore                # Archivos ignorados por git
+└── /README.md                 # Guía del proyecto
+```
 
-│   ├── /app/                         # Carpeta donde se encuentra la lógica del backend
+---
 
-│   │   ├── __init__.py               # Inicializa el paquete de la app, permite importaciones relativas
+## ⚙️ Requisitos
 
-│   │   ├── models.py                 # Define los modelos de base de datos, como Producto, Categoría, etc.
+### Backend
+- Python 3.10+
+- MySQL
+- pip
+- Virtualenv
 
-│   │   ├── controllers.py            # Gestiona la lógica de las rutas del API (peticiones GET, POST, etc.)
+### Frontend
+- Node.js 16+
+- npm o yarn
 
-│   │   ├── routes.py                 # Define las rutas o endpoints del API (URL de acceso)
+---
 
-│   │   ├── services.py               # Contiene la lógica de negocio, procesamiento de datos o acciones específicas
+## 🚀 Instalación
 
-│   │   ├── utils.py                  # Funciones y utilidades generales (helpers), como validaciones o transformaciones
+### 1. Clonar el repositorio
 
-│   │   └── config.py                 # Contiene la configuración del backend, como la conexión a la base de datos y configuraciones del servidor
+```bash
+git clone https://github.com/tu_usuario/inventory_management_project.git
+cd inventory_management_project
+```
 
-│   ├── /tests/                       # Carpeta para las pruebas del backend
+### 2. Configurar el Backend
 
-│   │   ├── test_models.py            # Pruebas unitarias para los modelos de base de datos
+```bash
+cd backend
+python -m venv venv
+source venv/bin/activate     # En Windows: venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-│   │   ├── test_controllers.py       # Pruebas unitarias para los controladores (endpoints del API)
+Editar `database.py` con tus credenciales de conexión a MySQL.
 
-│   │   └── test_routes.py            # Pruebas unitarias para las rutas del backend
+Ejecutar la aplicación:
 
-│   ├── app.py                        # Archivo principal para iniciar el servidor de Flask
+```bash
+cd app
+python app.py
+```
 
-│   ├── requirements.txt              # Lista las dependencias de Python necesarias para el backend (por ejemplo, Flask, SQLAlchemy, etc.)
+### 3. Configurar el Frontend
 
-├── /frontend/                        # Carpeta del frontend
+```bash
+cd ../../frontend
+npm install
+npm start
+```
 
-│   ├── /src/                         # Carpeta con los componentes React
+---
 
-│   │   ├── /components/              # Componentes reutilizables, como Header, Footer, etc.
+## 🔗 Endpoints principales
 
-│   │   ├── /views/                   # Vistas principales de la aplicación (ej. Dashboard, Login, etc.)
+- `GET /categorias`
+- `POST /categoria`
+- `DELETE /categoria/<id>` → desactiva la categoría (`activo = 0`)
+- `GET /productos`
+- `POST /producto`
+- `DELETE /producto/<id>` → desactiva el producto (`activo = 0`)
+- Otros endpoints disponibles para marcas, almacenes y movimientos
 
-│   │   ├── /hooks/                   # Hooks personalizados de React para manejar el estado o lógica del frontend
+---
 
-│   │   ├── /context/                 # Carpeta para manejar el estado global usando React Context
+## 🧪 Base de datos
 
-│   │   ├── App.js                    # Componente raíz de la aplicación que contiene la estructura principal
+Incluye tablas como:
 
-│   │   └── index.js                  # Archivo principal de entrada para la aplicación React
+- `categorias (id, nombre, activo)`
+- `marcas (id, nombre, activo)`
+- `productos (id, nombre, categoria_id, marca_id, stock_actual, activo)`
+- `movimientos_inventario`
+- `almacenes`
+- `usuarios`
 
-│   ├── /public/                      # Archivos estáticos que se sirven directamente (HTML, imágenes, etc.)
+---
 
-│   │   └── index.html                # Archivo HTML principal donde se carga la aplicación React
+## 👥 Autores
 
-│   ├── package.json                  # Configuración de las dependencias de Node.js para el frontend (React, React Router, etc.)
+- [Tu Nombre] - Desarrollador Backend & Frontend
 
-└── README.md                         # Documentación general del proyecto, instrucciones de instalación y uso
+---
 
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT.
