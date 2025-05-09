@@ -87,17 +87,6 @@ npm start
 
 ---
 
-## 🔗 Endpoints principales
-
-- `GET /categorias`
-- `POST /categoria`
-- `DELETE /categoria/<id>` → desactiva la categoría (`activo = 0`)
-- `GET /productos`
-- `POST /producto`
-- `DELETE /producto/<id>` → desactiva el producto (`activo = 0`)
-- Otros endpoints disponibles para marcas, almacenes y movimientos
-
----
 
 ## 🧪 Base de datos
 
@@ -112,12 +101,4 @@ Incluye tablas como:
 
 ---
 
-## 👥 Autores
 
-- [Tu Nombre] - Desarrollador Backend & Frontend
-
----
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT.

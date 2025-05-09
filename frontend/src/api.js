@@ -1,7 +1,7 @@
 // api.js
 import axios from 'axios';
 
-const apiUrl = 'http://localhost:5000'; // Asegúrate de que este sea el URL correcto de tu backend
+const apiUrl = 'http://localhost:8000'; // Asegúrate de que este sea el URL correcto de tu backend
 
 // Función para editar un producto
 export const editarProducto = async (id, producto) => {
@@ -81,7 +81,7 @@ export const eliminarMarca = async (id) => {
 };
 
 // Función para crear un nuevo producto
-export const crearProducto = async (producto) => {
+export const crear_producto = async (producto) => {
   try {
     const response = await axios.post(`${apiUrl}/producto`, producto); 
     return response.data;

@@ -10,7 +10,7 @@ const Productos = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios.get('http://127.0.0.1:5000/productos')
+    axios.get('http://localhost:3000/productos')
       .then(response => {
         setProductos(response.data);
         setLoading(false);
