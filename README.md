@@ -3,6 +3,15 @@
 Este es un proyecto full stack con **Flask** como backend y **React** como frontend. La estructura está diseñada para ser escalable, mantenible y fácil de entender.
 
 ---
+## 📁 Manual de usuario 
+El siguiente proyecto se debera realizar en los siguientes pasos:
+- implementar la base de datos que existe dentro del /database/base de datos(conlogin).txt en Mysql 
+- crear un ambiente virtual con los requisitos del backend python -m venv env; pip install -r requirements.txt
+- entrar al ambiente con .\env\Scripts\activate
+- En Testing-Modulo-Inventarios-02/backend/api/database.py cambiar las permisos para la base de datos DATABASE_URL = "mysql+pymysql://root:(tu contraseña)@(donde esta alojado)/inventario_db"
+- iniciar el backend uvicorn api.main:app --reload
+- iniciar el frontend npm install; npm install react-scripts;npm start
+ 
 
 ## 📁 Estructura del Proyecto
 
