@@ -92,7 +92,7 @@ INSERT INTO almacenes (nombre, ubicacion, activo) VALUES
 
 -- Insertar productos
 INSERT INTO productos (nombre, categoria_id, marca_id, precio, stock_actual, stock_minimo, activo) VALUES 
-('Televisor 50" 4K', 1, 1, 1499.99, 25, 5, TRUE),
+('Televisor 50 4K', 1, 1, 1499.99, 25, 5, TRUE),
 ('Laptop MacBook Air', 2, 4, 5299.00, 10, 3, TRUE),
 ('Zapatillas Running', 5, 5, 299.90, 100, 20, TRUE),
 ('Refrigeradora 350L', 1, 2, 2399.50, 8, 2, TRUE),
