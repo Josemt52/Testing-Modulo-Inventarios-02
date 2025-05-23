@@ -1,9 +1,0 @@
-fastapi
-uvicorn
-sqlalchemy
-pymysql
-pydantic[email]
-pytest
-httpx
-cryptography
-react-scripts
