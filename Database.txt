@@ -1,0 +1,113 @@
+-- Crear base de datos (si no existe)
+CREATE DATABASE IF NOT EXISTS inventario_db;
+USE inventario_db;
+
+-- Tabla de Categorías (actualizada con campo 'activo')
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    activo BOOLEAN DEFAULT TRUE
+);
+
+-- Tabla de Marcas (ya actualizada con campo 'activo')
+CREATE TABLE marcas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    activo BOOLEAN DEFAULT TRUE
+);
+
+-- Tabla de Almacenes
+CREATE TABLE almacenes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    ubicacion TEXT,
+    activo BOOLEAN DEFAULT TRUE
+);
+
+-- Tabla de Productos
+CREATE TABLE productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    categoria_id INT,
+    marca_id INT,
+    precio DECIMAL(10, 2) NOT NULL,
+    stock_actual INT DEFAULT 0,
+    stock_minimo INT DEFAULT 0,
+    activo BOOLEAN DEFAULT TRUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id),
+    FOREIGN KEY (marca_id) REFERENCES marcas(id)
+);
+
+-- Tabla de Movimientos de Inventario
+CREATE TABLE movimientos_inventario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    tipo ENUM('entrada', 'salida') NOT NULL,
+    cantidad INT NOT NULL,
+    almacen_id INT,
+    origen VARCHAR(100),
+    observaciones TEXT,
+    fecha DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (producto_id) REFERENCES productos(id),
+    FOREIGN KEY (almacen_id) REFERENCES almacenes(id)
+);
+
+-- Tabla de Usuarios
+CREATE TABLE usuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100),
+    rol VARCHAR(50),
+    email VARCHAR(100) UNIQUE,
+    password VARCHAR(100) NOT NULL 
+);
+
+-- Insertar categorías con campo 'activo'
+INSERT INTO categorias (nombre, activo) VALUES 
+('Electrodomésticos', TRUE),
+('Tecnología', TRUE),
+('Hogar', TRUE),
+('Deportes', TRUE),
+('Ropa', TRUE);
+
+-- Insertar marcas con campo 'activo'
+INSERT INTO marcas (nombre, activo) VALUES 
+('Samsung', TRUE),
+('LG', TRUE),
+('Sony', TRUE),
+('Apple', TRUE),
+('Nike', TRUE);
+
+-- Insertar almacenes
+INSERT INTO almacenes (nombre, ubicacion, activo) VALUES 
+('Almacén Central Lima', 'Av. Argentina 1450, Callao, Lima', TRUE),
+('Almacén Sur Arequipa', 'Parque Industrial Río Seco, Cerro Colorado, Arequipa', TRUE),
+('Almacén Norte Piura', 'Zona Industrial Piura, Av. Vice 780, Castilla, Piura', TRUE),
+('Almacén Oriente Iquitos', 'Carretera Iquitos - Nauta Km 5.5, Iquitos, Loreto', TRUE),
+('Almacén Andino Cusco', 'Parque Industrial Ucchullo Alto, Cusco', TRUE);
+
+
+-- Insertar productos
+INSERT INTO productos (nombre, categoria_id, marca_id, precio, stock_actual, stock_minimo, activo) VALUES 
+('Televisor 50" 4K', 1, 1, 1499.99, 25, 5, TRUE),
+('Laptop MacBook Air', 2, 4, 5299.00, 10, 3, TRUE),
+('Zapatillas Running', 5, 5, 299.90, 100, 20, TRUE),
+('Refrigeradora 350L', 1, 2, 2399.50, 8, 2, TRUE),
+('Parlante Bluetooth', 2, 3, 199.99, 50, 10, TRUE);
+
+-- Insertar movimientos de entrada
+INSERT INTO movimientos_inventario (producto_id, tipo, cantidad, almacen_id, origen, observaciones) VALUES 
+(1, 'entrada', 20, 1, 'compra', 'Ingreso de stock inicial'),
+(2, 'entrada', 5, 1, 'compra', 'Ingreso por importación'),
+(3, 'entrada', 50, 2, 'compra', 'Ingreso de zapatillas verano'),
+(4, 'entrada', 8, 1, 'compra', 'Ingreso de línea blanca'),
+(5, 'entrada', 30, 3, 'compra', 'Reposición bodega norte');
+
+-- Insertar movimientos de salida
+INSERT INTO movimientos_inventario (producto_id, tipo, cantidad, almacen_id, origen, observaciones) VALUES 
+(1, 'salida', 2, 1, 'venta', 'Venta online'),
+(3, 'salida', 5, 2, 'venta', 'Venta en tienda física'),
+(5, 'salida', 3, 3, 'traslado', 'Traslado a Almacén Central');
