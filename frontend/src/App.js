@@ -3,7 +3,7 @@ import {
   obtenerProductos, 
   editarProducto, 
   eliminarProducto, 
-  crearProducto, 
+  crear_producto, 
   obtenerCategorias,
   eliminarCategoria, 
   obtenerMarcas, 
@@ -127,7 +127,7 @@ function App() {
 
   const handleSubmitProducto = async (e) => {
     e.preventDefault();
-    const result = await crearProducto(nuevoProducto);
+    const result = await crear_producto(nuevoProducto);
     if (result.message === 'Producto creado exitosamente') {
       const productosData = await obtenerProductos();
       setProductos(productosData);
@@ -250,13 +250,13 @@ function App() {
         <input type="text" name="nombre" value={nuevoProducto.nombre} onChange={handleChangeProducto} placeholder="Nombre" required />
         <select name="categoria_id" value={nuevoProducto.categoria_id} onChange={handleChangeProducto} required>
           <option value="">Categoría</option>
-          {categorias.map(cat => (
+          {(categorias || []).map(cat => (
             <option key={cat.id} value={cat.id}>{cat.nombre}</option>
           ))}
         </select>
         <select name="marca_id" value={nuevoProducto.marca_id} onChange={handleChangeProducto} required>
           <option value="">Marca</option>
-          {marcas.map(m => (
+          {(marcas || []).map(m => (
             <option key={m.id} value={m.id}>{m.nombre}</option>
           ))}
         </select>
@@ -279,7 +279,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {productos.map(producto => (
+          {(productos || []).map(producto => (
             <tr key={producto.id}>
               {editandoId === producto.id ? (
                 <>
@@ -341,7 +341,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {categorias.map((categoria) => (
+          {(categorias || []).map((categoria) => (
             <tr key={categoria.id}>
               <td>{categoria.nombre}</td>
               <td>
@@ -375,7 +375,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {marcas.map((marca) => (
+          {(marcas || []).map((marca) => (
             <tr key={marca.id}>
               <td>{marca.nombre}</td>
               <td>
@@ -403,7 +403,7 @@ function App() {
           </tr>
         </thead>
         <tbody>
-          {almacenes.map((almacenes) => (
+          {(almacenes || []).map((almacenes) => (
             <tr key={almacenes.id}>
               <td>{almacenes.nombre}</td>
               <td>{almacenes.ubicacion}</td>
